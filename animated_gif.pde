@@ -18,7 +18,7 @@ public void setup(){
   //size(640,480);
   imageMode(CENTER);
   for(int i=1;i<=filenum;i++){
-    loopingGif[i] = new Gif(this,i+".gif");
+    loopingGif[i] = new Gif(this,fileArray[i-1]);
     loopingGif[i].play();
     //loopingGif[i].ignoreRepeat();
   }
