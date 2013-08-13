@@ -1,10 +1,13 @@
 import gifAnimation.*;
 import java.io.*;
 
-Gif[] loopingGif = new Gif[20];
+Gif[] loopingGif = new Gif[40];
 int gifnum=1;
 int filenum;
-boolean loadflag_g=false;
+int currenttime=0;
+int endflame;
+boolean changeflag=false;
+boolean t_start = true;
 
 public void setup(){
   File directry = new File(dataPath(""));
@@ -14,29 +17,24 @@ public void setup(){
   size(displayWidth,displayHeight);
   //size(640,480);
   imageMode(CENTER);
-  for(int i=1;i<filenum;i++){
+  for(int i=1;i<=filenum;i++){
     loopingGif[i] = new Gif(this,i+".gif");
     loopingGif[i].play();
     //loopingGif[i].ignoreRepeat();
   }
 }
-//void loading(boolean loadflag){
-//  if(loadflag == false){
-//    if(gifnum < filenum){
-//      gifnum++;
-//    }else{
-//      gifnum=1;
-//    }
-//    loopingGif = new Gif(this,gifnum+".gif");
-//    loopingGif.play();
-//    loopingGif.ignoreRepeat();
-//    loadflag_g=false;
-//  }else{
-//  }
-//}
+void loading(boolean flag){
+  if(flag == true){
+    changeflag=false;
+    t_start=true;
+    gifnum=(int)random(1,filenum);
+  }else{
+  }
+}
 void draw(){
-   float w,h,r;
-   //loading(loopingGif.isPlaying());
+   float w,h;
+   background(25);
+   loading(changeflag);
    if ( loopingGif[gifnum].width > loopingGif[gifnum].height ) {
       h = height;
       w = (float)loopingGif[gifnum].width * ((float)height/(float)loopingGif[gifnum].height);
@@ -45,6 +43,20 @@ void draw(){
       w = width;
       h = (float)loopingGif[gifnum].height * ((float)width/(float)loopingGif[gifnum].width);
     }
-   image(loopingGif[gifnum],width/2,height/2,w,h);
+    timer();
+    image(loopingGif[gifnum],width/2,height/2,w,h);
+}
+
+void timer(){
+    if(t_start == true ){
+      endflame=(int)random(1,30);
+      t_start=false;
+    }
+    currenttime++;
+    if(currenttime == endflame){
+      changeflag=true;
+      currenttime=0;
+    }
+    println(currenttime/60);
 }
     
