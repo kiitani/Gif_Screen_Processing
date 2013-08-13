@@ -14,10 +14,10 @@ public void setup(){
   size(displayWidth,displayHeight);
   //size(640,480);
   imageMode(CENTER);
-  for(int i=1;i==filenum;i++){
+  for(int i=1;i<filenum;i++){
     loopingGif[i] = new Gif(this,i+".gif");
     loopingGif[i].play();
-    loopingGif[i].ignoreRepeat();
+    //loopingGif[i].ignoreRepeat();
   }
 }
 //void loading(boolean loadflag){
@@ -47,3 +47,4 @@ void draw(){
     }
    image(loopingGif[gifnum],width/2,height/2,w,h);
 }
+    
