@@ -1,41 +1,48 @@
 import gifAnimation.*;
+import java.io.*;
 
-PImage[] animation;
 Gif loopingGif;
 int gifnum=1;
+int filenum;
 boolean loadflag_g=false;
 
 public void setup(){
-  size(screen.width,screen.height);
+  File directry = new File(dataPath(""));
+  String[] fileArray=directry.list();
+  filenum=fileArray.length;
+  println(filenum);
+  size(displayWidth,displayHeight);
   //size(640,480);
-  //frameRate(100);
-  
-  loopingGif = new Gif(this,"00"+gifnum+".gif");
-  loopingGif.loop();
+  imageMode(CENTER);
+  loopingGif = new Gif(this,gifnum+".gif");
+  loopingGif.play();
+  loopingGif.ignoreRepeat();
 }
 void loading(boolean loadflag){
-  if(loadflag == true){
-    loopingGif = new Gif(this,"00"+gifnum+".gif");
-    loopingGif.loop();
+  if(loadflag == false){
+    if(gifnum < filenum){
+      gifnum++;
+    }else{
+      gifnum=1;
+    }
+    loopingGif = new Gif(this,gifnum+".gif");
+    loopingGif.play();
+    loopingGif.ignoreRepeat();
     loadflag_g=false;
   }else{
   }
 }
 void draw(){
-  loading(loadflag_g);
-  image(loopingGif,0,0,width,height);
-  println(gifnum);
+   float w,h,r;
+   loading(loopingGif.isPlaying());
+   if ( loopingGif.width > loopingGif.height ) {
+      h = height;
+      w = (float)loopingGif.width * ((float)height/(float)loopingGif.height);
+    } 
+    else {
+      w = width;
+      h = (float)loopingGif.height * ((float)width/(float)loopingGif.width);
+    }
+   image(loopingGif,width/2,height/2,w,h);
 }
-
-void mousePressed(){
-  switch(gifnum){
-    case 1:
-      gifnum=2;
-      break;
-    case 2:
-      gifnum=1;
-      break;
-  }
-  loadflag_g=true;
-} 
     
