@@ -27,7 +27,7 @@ void loading(boolean flag){
   if(flag == true){
     changeflag=false;
     t_start=true;
-    gifnum=(int)random(1,filenum);
+    gifnum=(int)random(1,filenum+1);
   }else{
   }
 }
